@@ -7,7 +7,7 @@ headers = {
 }
 
 params = {
-    "q": "mosquito bite", # search query
+    "q": "bee sting", # search query
     "tbm": "isch",                # image results
     "hl": "en",                   # language of the search
     "gl": "us",                   # country where search comes from
@@ -18,8 +18,8 @@ html = requests.get("https://www.google.com/search", params=params, headers=head
 soup = BeautifulSoup(html.text, "lxml")
 def serpapi_get_google_images():
     image_results = []
-    
-    for query in ["mosquito bite"]:
+    srch="bee sting"
+    for query in [srch]:
         # search query parameters
         params = {
             "engine": "google",               # search engine. Google, Bing, Yahoo, Naver, Baidu...
@@ -58,9 +58,11 @@ def serpapi_get_google_images():
         opener=urllib.request.build_opener()
         opener.addheaders=[("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36")]
         urllib.request.install_opener(opener)
+        s=srch.replace(" ","_")
         try:
-            urllib.request.urlretrieve(image["original"], f"./mosquito_bites/original_size_img_{index}.jpg")
-        except:
+            
+            urllib.request.urlretrieve(image["original"], f"./candidates/{s}_candidates/original_size_img_{index}.jpg")
+        except:    
             print(f"error saving image {index}")
     print(json.dumps(image_results, indent=2))
     print(len(image_results))
